@@ -1,0 +1,37 @@
+/*
+Write a program that reads two integer numbers N and K and an array of N elements from the console. Find in the array those K elements that have maximal sum.
+*/
+using System;
+using System.Collections.Generic;
+
+class CombinationsNK
+{
+    private static void Calculate(int[] array, int k, int n, int start)
+    {
+        if (k == array.Length)
+        {
+            foreach (int number in array)
+            {
+                Console.Write(number + " ");
+            }
+            Console.WriteLine();
+        }
+        else
+        {
+            for (int i = start; i <= n; i++)
+            {
+                array[k] = i;
+                Calculate(array, k + 1, n, i + 1);
+            }
+        }
+    }
+    static void Main()
+    {
+        Console.Write("Enter size of the subset: ");        
+        int K = int.Parse(Console.ReadLine());        
+        Console.Write("Enter length of the array: ");        
+        int N = int.Parse(Console.ReadLine());
+        int[] array = new int[K];        
+        Calculate(array, 0, N, 1);
+    }
+}
