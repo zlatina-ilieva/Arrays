@@ -1,0 +1,42 @@
+/*
+Write a program that finds the sequence of maximal sum in given array. Example:
+	{2, 3, -6, -1, 2, -1, 6, 4, -8, 8}  {2, -1, 6, 4}
+	Can you do it with only one loop (with single scan through the elements of the array)?
+*/
+using System;
+
+class MaxSumOfArray
+{
+    static void Main()
+    {
+        int[] array = { 2, 3, -6, -1, 2, -1, 6, 4, -8, 8 };
+        int currentSum = 0;
+        int maxSum = int.MinValue;
+        int begin = 0;
+        int begin_tmp = 0;
+        int end = 0;
+        for (int index = 0; index < array.Length; index++)
+        {
+            currentSum += array[index];
+            if (array[index] > currentSum)
+            {
+                currentSum = array[index];
+                begin_tmp = index;
+            }
+
+            if (currentSum > maxSum)
+            {
+                maxSum = currentSum;
+                begin = begin_tmp;
+                end = index;
+            }
+        }
+        Console.Write("The max sum is {0}", maxSum );
+        Console.WriteLine();
+        Console.Write("The sequence is: ");
+        for (int i = begin; i <= end; i++)
+        {
+            Console.Write("{0} ", array[i]);
+        }
+    }
+}
