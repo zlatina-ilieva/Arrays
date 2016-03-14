@@ -1,0 +1,55 @@
+/*
+Write a program that finds the maximal increasing sequence in an array. Example: {3, 2, 3, 4, 2, 2, 4} --> {2, 3, 4}.
+*/
+using System;
+
+class MaxIncreasingSequence
+{
+    private static string Combinations(int[] nums, int[] index, int k, int i, int start)
+    {
+        if (i > k) return null;
+        string S = null;
+        for (int j = start; j < nums.Length; j++)
+        {
+            index[i] = j;
+
+            S = Combinations(nums, index, k, i + 1, j + 1);
+            if (i == k)
+            {
+                string c = Check(nums, index, k);
+                if (c != null) Console.WriteLine(c);
+                break;
+            }
+        }
+        return S;
+    }
+    private static string Check(int[] nums, int[] index, int k)
+    {
+        string Str = null;
+        for (int i = 0; i < k; i++)
+        {
+            if (nums[index[i]] > nums[index[i + 1]]) return null;
+        }
+        for (int i = 0; i <= k; i++)
+        {
+            if (i != k) Str += nums[index[i]] + " ";
+            else Str += nums[index[i]] + ",";
+        }
+        return Str;
+    }
+    static void Main()
+    {
+        uint N = uint.Parse(Console.ReadLine());
+
+        int[] nums = new int[N];
+        for (int i = 0; i < nums.Length; i++)
+        {
+            Console.Write("Enter element {0}: ", i + 1);
+            nums[i] = int.Parse(Console.ReadLine());
+        }
+        int[] indices = new int[nums.Length];
+        int[] index = new int[nums.Length];
+        string results = "";
+        for (int i = nums.Length - 1; i >= 0; i--) results += Combinations(nums, index, i, 0, 0);
+    }
+}
