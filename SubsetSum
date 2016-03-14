@@ -1,0 +1,44 @@
+/*
+We are given an array of integers and a number S. Write a program to find if there exists a subset of the elements of the array 
+that has a sum S. Example: arr={2, 1, 2, 4, 3, 5, 2, 6}, S=14 --> yes (1+2+5+6)
+*/
+using System;
+
+class SubsetSum
+{
+    static void Main()
+    {
+        Console.Write("Enter sum you want to find, S:");
+        long S = long.Parse(Console.ReadLine());
+        Console.Write("Enter size for the array, N:");
+        long N = long.Parse(Console.ReadLine());
+        int maxI = (int)Math.Pow(2, N) - 1;
+        long[] numberN = new long[N];
+        string subset = "";
+        for (int i = 0; i < N; i++)
+        {
+            numberN[i] = long.Parse(Console.ReadLine());
+        }
+        for (int i = 1; i <= maxI; i++)
+        {
+            long currentSum = 0;
+            subset = "";
+            for (int j = 0; j <= N; j++)
+            {
+
+                int mask = 1 << j;
+                int nAndMask = i & mask;
+                int bit = nAndMask >> j;
+                if (bit == 1)
+                {
+                    currentSum = currentSum + numberN[j];
+                    subset = subset + " " + numberN[j];
+                }
+            }
+            if (currentSum == S)
+            {
+                Console.WriteLine("This is subset which has a sum of {0} is ({1}) ", S, subset);
+            }
+        }
+    }
+}
