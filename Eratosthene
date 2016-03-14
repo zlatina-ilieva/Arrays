@@ -1,0 +1,38 @@
+/*
+Write a program that finds all prime numbers in the range [1...10 000 000]. Use the sieve of Eratosthenes algorithm (find it in Wikipedia).
+*/
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+class Eratosthene
+{
+    void prime_num(long num)
+    {
+        bool isPrime = true;
+        for (int i = 2; i <= num; i++)
+        {
+            for (int j = 2; j <= num; j++)
+            {
+                if (i != j && i % j == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+            if (isPrime)
+            {
+                Console.WriteLine("Prime:" + i);
+            }
+            isPrime = true;
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        Eratosthene p = new Eratosthene();
+        p.prime_num(100);
+        Console.ReadLine();
+    }
+}
